@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+    
+    environment {
+        // Define environment variables if needed
+        // Example: MY_VAR = 'some_value'
+    }
+    
+    options {
+        // Define pipeline options if needed
+        // Example: timeout(time: 1, unit: 'HOURS')
+    }
+    
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                // Add your build commands here
+                // For example: sh 'mvn clean package'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                // Add your test commands here
+                // For example: sh 'mvn test'
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+                // Add your deployment commands here
+                // For example: sh 'deploy.sh'
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'This will always run'
+        }
+        success {
+            echo 'This will run only if the pipeline succeeds'
+        }
+        failure {
+            echo 'This will run only if the pipeline fails'
+        }
+        unstable {
+            echo 'This will run if the pipeline is unstable'
+        }
+        changed {
+            echo 'This will run if the state of the pipeline has changed'
+        }
+    }
+}
